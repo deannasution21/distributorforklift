@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:www.still.co.uk)"
+      "WebFetch(domain:www.still.co.uk)",
+      "Bash(php artisan *)"
     ]
   }
 }
