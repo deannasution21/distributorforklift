@@ -165,7 +165,7 @@
                         </svg>
                     </div>
                     <span
-                        class="font-black text-slate-900 text-[17px] tracking-tight font-['Barlow'] leading-none"
+                        class="font-black text-slate-900 text-[17px] tracking-tight leading-none"
                     >
                         DISTRIBUTOR<span class="text-orange-600">FORKLIFT</span>
                     </span>
@@ -184,10 +184,10 @@
                     >
                         <button
                             :class="[
-                                'flex items-center gap-1 px-4 text-md transition-colors duration-150 whitespace-nowrap border-b-[3px] -mb-px h-full',
+                                'flex items-center gap-1 px-4 text-lg transition-colors duration-150 whitespace-nowrap border-b-[3px] -mb-px h-full',
                                 activeMenu === item.label
-                                    ? 'text-orange-600 border-orange-600 font-semibold'
-                                    : 'text-slate-800 border-transparent hover:text-orange-600 font-medium',
+                                    ? 'text-orange-600 border-orange-600 font-bold'
+                                    : 'text-slate-800 border-transparent hover:text-orange-600 font-bold',
                             ]"
                         >
                             {{ item.label }}
@@ -285,7 +285,7 @@
                         :key="sub.label"
                         @mouseenter="activeSubItem = sub.label"
                         :class="[
-                            'flex items-center justify-between w-full text-left px-3 py-2.5 text-sm rounded transition-colors duration-150',
+                            'flex items-center justify-between w-full text-left px-3 py-2.5 text-xl rounded transition-colors duration-150',
                             activeSubItem === sub.label
                                 ? 'text-orange-600 font-semibold bg-orange-50'
                                 : 'text-orange-500 hover:text-orange-700 font-medium',
@@ -314,7 +314,7 @@
                     <template
                         v-if="activeSubItemData && activeSubItemData.children"
                     >
-                        <h3 class="text-orange-600 font-semibold text-sm mb-4">
+                        <h3 class="text-orange-600 font-semibold text-xl mb-4">
                             {{ activeSubItemData.label }}
                         </h3>
                         <div class="grid grid-cols-2 gap-x-12 gap-y-1">
@@ -322,7 +322,7 @@
                                 v-for="child in activeSubItemData.children"
                                 :key="child"
                                 href="#"
-                                class="text-sm text-gray-500 hover:text-orange-600 py-1.5 transition-colors duration-150"
+                                class="text-lg text-gray-500 hover:text-orange-600 py-1.5 transition-colors duration-150"
                             >
                                 {{ child }}
                             </a>
@@ -333,15 +333,15 @@
                             activeSubItemData && !activeSubItemData.children
                         "
                     >
-                        <h3 class="text-orange-600 font-semibold text-sm mb-4">
+                        <h3 class="text-orange-600 font-semibold text-xl mb-4">
                             {{ activeSubItemData.label }}
                         </h3>
-                        <p class="text-sm text-gray-400">
+                        <p class="text-lg text-gray-400">
                             Pilih kategori di sebelah kiri untuk melihat detail.
                         </p>
                     </template>
                     <template v-else>
-                        <p class="text-sm text-gray-400 pt-2">
+                        <p class="text-lg text-gray-400 pt-2">
                             Arahkan kursor ke kategori di kiri.
                         </p>
                     </template>
@@ -386,7 +386,7 @@
                 >
                     <button
                         @click="toggleMobileItem(item.label)"
-                        class="flex items-center justify-between w-full py-3.5 text-sm font-medium text-slate-700 hover:text-orange-600 transition-colors"
+                        class="flex items-center justify-between w-full py-3.5 font-bold text-lg text-slate-700 hover:text-orange-600 transition-colors"
                     >
                         <span>{{ item.label }}</span>
                         <svg
@@ -416,7 +416,7 @@
                         <div v-for="sub in item.subItems" :key="sub.label">
                             <button
                                 @click="toggleMobileSubItem(sub.label)"
-                                class="flex items-center justify-between w-full py-2 text-sm text-orange-500 hover:text-orange-700 font-medium transition-colors"
+                                class="flex items-center justify-between w-full py-2 text-lg text-orange-500 hover:text-orange-700 font-medium transition-colors"
                             >
                                 <span>{{ sub.label }}</span>
                                 <svg
@@ -449,7 +449,7 @@
                                     v-for="child in sub.children"
                                     :key="child"
                                     href="#"
-                                    class="block py-1.5 text-sm text-gray-500 hover:text-orange-600 transition-colors"
+                                    class="block py-1.5 text-gray-500 hover:text-orange-600 transition-colors"
                                 >
                                     {{ child }}
                                 </a>
@@ -460,13 +460,8 @@
 
                 <div class="pt-4 pb-3 flex flex-col gap-2.5">
                     <a
-                        href="#"
-                        class="text-sm font-medium text-slate-700 py-2 hover:text-orange-600 transition-colors"
-                        >Tentang Kami</a
-                    >
-                    <a
                         href="/products"
-                        class="bg-orange-600 text-white text-sm font-semibold px-5 py-3 text-center hover:bg-orange-700 transition-colors"
+                        class="bg-orange-600 text-white text-lg font-semibold px-5 py-3 text-center hover:bg-orange-700 transition-colors"
                     >
                         Katalog Produk
                     </a>

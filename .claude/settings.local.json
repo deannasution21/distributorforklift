@@ -2,7 +2,18 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:www.still.co.uk)",
-      "Bash(php artisan *)"
+      "Bash(php artisan *)",
+      "Bash(Get-Content \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Layouts\\\\AuthenticatedLayout.vue\" -TotalCount 5)",
+      "Bash(Select-String -Path \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Pages\\\\Admin\\\\Slider\\\\Edit.vue\" -Pattern \"Edit Slider|Kembali\" -Context 0,2)",
+      "Bash(Select-Object -First 10)",
+      "Bash(npm install *)",
+      "PowerShell(npm install @tiptap/vue-3 @tiptap/pm @tiptap/starter-kit 2>&1)",
+      "PowerShell(node --version)",
+      "PowerShell(& \"C:\\\\Program Files\\\\nodejs\\\\npm.cmd\" --version 2>&1)",
+      "Bash(git rm *)",
+      "Bash(git check-ignore *)",
+      "Bash(git add *)",
+      "Bash(git restore *)"
     ]
   }
 }
