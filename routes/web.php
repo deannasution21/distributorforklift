@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\HomepageAboutController;
+use App\Http\Controllers\Admin\NavItemController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Public\NewsController;
+use App\Http\Controllers\Public\PageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,6 +42,14 @@ Route::get('/', function () {
 Route::get('/berita', [NewsController::class, 'index'])->name('news.index');
 Route::get('/berita/{slug}', [NewsController::class, 'show'])->name('news.show');
 
+// Static page preview (dummy data)
+Route::get('/preview-halaman-statis', function () {
+    return Inertia::render('Page/Show');
+})->name('page.preview');
+
+// Dynamic static pages
+Route::get('/halaman/{slug}', [PageController::class, 'show'])->name('page.show');
+
 // Admin routes
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
@@ -62,6 +73,18 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::resource('news', AdminNewsController::class)
         ->names('admin.news')
         ->except(['show']);
+
+    // Pages CRUD
+    Route::resource('pages', AdminPageController::class)
+        ->names('admin.pages')
+        ->except(['show']);
+
+    // Navigation editor (hidden — not in sidebar)
+    Route::get('navigation', [NavItemController::class, 'index'])->name('admin.navigation.index');
+    Route::post('navigation', [NavItemController::class, 'store'])->name('admin.navigation.store');
+    Route::put('navigation/{navItem}', [NavItemController::class, 'update'])->name('admin.navigation.update');
+    Route::delete('navigation/{navItem}', [NavItemController::class, 'destroy'])->name('admin.navigation.destroy');
+    Route::post('navigation/{navItem}/move', [NavItemController::class, 'move'])->name('admin.navigation.move');
 });
 
 require __DIR__.'/auth.php';

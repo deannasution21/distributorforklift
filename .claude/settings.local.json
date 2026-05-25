@@ -26,7 +26,13 @@
       "Bash(Out-Null)",
       "Bash(Write-Output \"done\")",
       "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Components\\\\Admin\")",
-      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Pages\\\\Admin\\\\News\")"
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Pages\\\\Admin\\\\News\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Pages\\\\Page\")",
+      "PowerShell(New-Item -ItemType File -Force \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Pages\\\\Page\\\\Show.vue\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Pages\\\\Admin\\\\Page\")",
+      "PowerShell(New-Item -ItemType File -Force \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Pages\\\\Admin\\\\Page\\\\Index.vue\")",
+      "PowerShell(New-Item -ItemType File -Force \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Pages\\\\Admin\\\\Page\\\\Create.vue\")",
+      "PowerShell(New-Item -ItemType File -Force \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Pages\\\\Admin\\\\Page\\\\Edit.vue\")"
     ]
   }
 }

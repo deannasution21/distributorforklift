@@ -322,11 +322,11 @@
                         <div class="grid grid-cols-2 gap-x-12 gap-y-1">
                             <a
                                 v-for="child in activeSubItemData.children"
-                                :key="child"
-                                href="#"
+                                :key="child.label"
+                                :href="child.href ?? '#'"
                                 class="text-lg text-gray-500 hover:text-orange-600 py-1.5 transition-colors duration-150"
                             >
-                                {{ child }}
+                                {{ child.label }}
                             </a>
                         </div>
                     </template>
@@ -451,11 +451,11 @@
                             >
                                 <a
                                     v-for="child in sub.children"
-                                    :key="child"
-                                    href="#"
+                                    :key="child.label"
+                                    :href="child.href ?? '#'"
                                     class="block py-1.5 text-gray-500 hover:text-orange-600 transition-colors"
                                 >
-                                    {{ child }}
+                                    {{ child.label }}
                                 </a>
                             </div>
                         </div>
@@ -477,6 +477,10 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { usePage } from "@inertiajs/vue3";
+
+const sharedNavPages = computed(() => usePage().props.nav_pages ?? []);
+const navStructure = computed(() => usePage().props.nav_structure ?? []);
 
 const activeMenu = ref(null);
 const activeSubItem = ref(null);
@@ -486,53 +490,54 @@ const mobileSubExpanded = ref(null);
 let closeTimer = null;
 
 // ── Nav Data ────────────────────────────────────────────────────
-const navItems = [
+// children[] are objects: { label, href } — href null means no link yet
+const baseNavItems = [
     {
         label: "Produk",
         subItems: [
             {
                 label: "Forklift Baru",
                 children: [
-                    "Forklift Elektrik",
-                    "Forklift Diesel",
-                    "Forklift LPG",
-                    "Forklift 4 Roda",
-                    "Forklift 3 Roda",
-                    "Forklift Heavy Duty",
+                    { label: "Forklift Elektrik", href: null },
+                    { label: "Forklift Diesel", href: null },
+                    { label: "Forklift LPG", href: null },
+                    { label: "Forklift 4 Roda", href: null },
+                    { label: "Forklift 3 Roda", href: null },
+                    { label: "Forklift Heavy Duty", href: null },
                 ],
             },
             {
                 label: "Forklift Sewa",
                 children: [
-                    "Sewa Harian",
-                    "Sewa Bulanan",
-                    "Sewa Tahunan",
-                    "Sewa dengan Operator",
+                    { label: "Sewa Harian", href: null },
+                    { label: "Sewa Bulanan", href: null },
+                    { label: "Sewa Tahunan", href: null },
+                    { label: "Sewa dengan Operator", href: null },
                 ],
             },
             {
                 label: "Forklift Bekas",
                 children: [
-                    "Unit Bekas Terinspeksi",
-                    "Garansi Terbatas",
-                    "Trade-In Program",
+                    { label: "Unit Bekas Terinspeksi", href: null },
+                    { label: "Garansi Terbatas", href: null },
+                    { label: "Trade-In Program", href: null },
                 ],
             },
             {
                 label: "Reach Truck",
                 children: [
-                    "Reach Truck Standar",
-                    "Double Deep Reach",
-                    "Narrow Aisle Reach",
+                    { label: "Reach Truck Standar", href: null },
+                    { label: "Double Deep Reach", href: null },
+                    { label: "Narrow Aisle Reach", href: null },
                 ],
             },
             {
                 label: "Hand Pallet & Order Picker",
                 children: [
-                    "Hand Pallet Manual",
-                    "Hand Pallet Elektrik",
-                    "Low Level Order Picker",
-                    "High Level Order Picker",
+                    { label: "Hand Pallet Manual", href: null },
+                    { label: "Hand Pallet Elektrik", href: null },
+                    { label: "Low Level Order Picker", href: null },
+                    { label: "High Level Order Picker", href: null },
                 ],
             },
             {
@@ -547,45 +552,45 @@ const navItems = [
             {
                 label: "Gudang & Logistik",
                 children: [
-                    "Penerimaan Barang",
-                    "Order Picking",
-                    "Pengemasan & Pengiriman",
-                    "Optimasi Storage",
-                    "Supply Produksi",
-                    "Barang Keluar",
+                    { label: "Penerimaan Barang", href: null },
+                    { label: "Order Picking", href: null },
+                    { label: "Pengemasan & Pengiriman", href: null },
+                    { label: "Optimasi Storage", href: null },
+                    { label: "Supply Produksi", href: null },
+                    { label: "Barang Keluar", href: null },
                 ],
             },
             {
                 label: "Manufaktur",
                 children: [
-                    "Lini Produksi",
-                    "Material Supply",
-                    "Pengangkutan Internal",
-                    "Waste Management",
+                    { label: "Lini Produksi", href: null },
+                    { label: "Material Supply", href: null },
+                    { label: "Pengangkutan Internal", href: null },
+                    { label: "Waste Management", href: null },
                 ],
             },
             {
                 label: "Cold Storage",
                 children: [
-                    "Forklift Suhu Rendah",
-                    "Freezer Warehouse",
-                    "Pharmaceutical Storage",
+                    { label: "Forklift Suhu Rendah", href: null },
+                    { label: "Freezer Warehouse", href: null },
+                    { label: "Pharmaceutical Storage", href: null },
                 ],
             },
             {
                 label: "Retail & Distribusi",
                 children: [
-                    "Cross Docking",
-                    "Sortasi & Distribusi",
-                    "Last-Mile Support",
+                    { label: "Cross Docking", href: null },
+                    { label: "Sortasi & Distribusi", href: null },
+                    { label: "Last-Mile Support", href: null },
                 ],
             },
             {
                 label: "Konstruksi & Berat",
                 children: [
-                    "Forklift Outdoor",
-                    "Rough Terrain",
-                    "Heavy Load Solution",
+                    { label: "Forklift Outdoor", href: null },
+                    { label: "Rough Terrain", href: null },
+                    { label: "Heavy Load Solution", href: null },
                 ],
             },
         ],
@@ -596,34 +601,34 @@ const navItems = [
             {
                 label: "Perawatan & Servis",
                 children: [
-                    "Servis Berkala",
-                    "Servis Darurat",
-                    "Perawatan Preventif",
-                    "Overhaul",
+                    { label: "Servis Berkala", href: null },
+                    { label: "Servis Darurat", href: null },
+                    { label: "Perawatan Preventif", href: null },
+                    { label: "Overhaul", href: null },
                 ],
             },
             {
                 label: "Suku Cadang",
                 children: [
-                    "Suku Cadang Original",
-                    "Fast Moving Parts",
-                    "Pemesanan Online",
+                    { label: "Suku Cadang Original", href: null },
+                    { label: "Fast Moving Parts", href: null },
+                    { label: "Pemesanan Online", href: null },
                 ],
             },
             {
                 label: "Pelatihan Operator",
                 children: [
-                    "Sertifikasi Operator",
-                    "Safety Training",
-                    "In-House Training",
+                    { label: "Sertifikasi Operator", href: null },
+                    { label: "Safety Training", href: null },
+                    { label: "In-House Training", href: null },
                 ],
             },
             {
                 label: "Konsultasi Teknis",
                 children: [
-                    "Analisa Kebutuhan",
-                    "Fleet Management",
-                    "Konsultasi On-Site",
+                    { label: "Analisa Kebutuhan", href: null },
+                    { label: "Fleet Management", href: null },
+                    { label: "Konsultasi On-Site", href: null },
                 ],
             },
         ],
@@ -639,9 +644,9 @@ const navItems = [
             {
                 label: "Tentang Kami",
                 children: [
-                    "Sejarah Perusahaan",
-                    "Visi & Misi",
-                    "Sertifikasi & Penghargaan",
+                    { label: "Sejarah Perusahaan", href: null },
+                    { label: "Visi & Misi", href: null },
+                    { label: "Sertifikasi & Penghargaan", href: null },
                 ],
             },
             {
@@ -651,9 +656,9 @@ const navItems = [
             {
                 label: "Karir",
                 children: [
-                    "Lowongan Kerja",
-                    "Budaya Kerja",
-                    "Benefit Karyawan",
+                    { label: "Lowongan Kerja", href: null },
+                    { label: "Budaya Kerja", href: null },
+                    { label: "Benefit Karyawan", href: null },
                 ],
             },
         ],
@@ -664,9 +669,45 @@ const navItems = [
     },
 ];
 
+const navItems = computed(() => {
+    const base = navStructure.value.length ? navStructure.value : baseNavItems;
+
+    if (!sharedNavPages.value.length) return base;
+
+    return base.map((mainItem) => {
+        if (!mainItem.subItems) return mainItem;
+
+        const relevantPages = sharedNavPages.value.filter(
+            (p) => p.nav_group === mainItem.label,
+        );
+        if (!relevantPages.length) return mainItem;
+
+        const newSubItems = mainItem.subItems.map((sub) => {
+            const pagesForSub = relevantPages.filter(
+                (p) => p.nav_sub === sub.label,
+            );
+            if (!pagesForSub.length) return sub;
+
+            const dynamicChildren = pagesForSub.map((p) => ({
+                label: p.nav_label || p.slug,
+                href: route("page.show", p.slug),
+            }));
+
+            return {
+                ...sub,
+                children: sub.children
+                    ? [...sub.children, ...dynamicChildren]
+                    : dynamicChildren,
+            };
+        });
+
+        return { ...mainItem, subItems: newSubItems };
+    });
+});
+
 // ── Computed ────────────────────────────────────────────────────
 const activeMegaData = computed(
-    () => navItems.find((i) => i.label === activeMenu.value) ?? null,
+    () => navItems.value.find((i) => i.label === activeMenu.value) ?? null,
 );
 
 const activeSubItemData = computed(() => {

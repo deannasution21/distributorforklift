@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call(HeroSliderSeeder::class);
         $this->call(HomepageAboutSeeder::class);
         $this->call(NewsSeeder::class);
+        $this->call(NavItemSeeder::class);
     }
 }
