@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(NewsSeeder::class);
         $this->call(NavItemSeeder::class);
         $this->call(ContactPageSeeder::class);
+        $this->call(InquirySettingSeeder::class);
+        $this->call(SiteSettingSeeder::class);
     }
 }

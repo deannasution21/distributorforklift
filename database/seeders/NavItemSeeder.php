@@ -13,56 +13,63 @@ class NavItemSeeder extends Seeder
 
         $structure = [
             [
-                'label' => 'Produk',
+                'label' => 'Keahlian Kami',
                 'href'  => null,
                 'subs'  => [
-                    ['label' => 'Forklift Baru', 'children' => ['Forklift Elektrik', 'Forklift Diesel', 'Forklift LPG', 'Forklift 4 Roda', 'Forklift 3 Roda', 'Forklift Heavy Duty']],
-                    ['label' => 'Forklift Sewa', 'children' => ['Sewa Harian', 'Sewa Bulanan', 'Sewa Tahunan', 'Sewa dengan Operator']],
-                    ['label' => 'Forklift Bekas', 'children' => ['Unit Bekas Terinspeksi', 'Garansi Terbatas', 'Trade-In Program']],
-                    ['label' => 'Reach Truck', 'children' => ['Reach Truck Standar', 'Double Deep Reach', 'Narrow Aisle Reach']],
-                    ['label' => 'Hand Pallet & Order Picker', 'children' => ['Hand Pallet Manual', 'Hand Pallet Elektrik', 'Low Level Order Picker', 'High Level Order Picker']],
-                    ['label' => 'Semua Produk', 'children' => []],
+                    ['label' => 'Logistik Pintar',                            'href' => null, 'children' => []],
+                    ['label' => 'Aplikasi pada Industri',                     'href' => null, 'children' => []],
+                    ['label' => 'Sistem Energi untuk Intralogistik',          'href' => null, 'children' => []],
+                    ['label' => 'Solusi Digital dari Distributor Forklift',   'href' => null, 'children' => []],
+                    ['label' => 'Referensi',                                  'href' => null, 'children' => []],
+                    ['label' => 'Penghargaan',                                'href' => null, 'children' => []],
                 ],
             ],
             [
-                'label' => 'Solusi',
+                'label' => 'Forklift',
                 'href'  => null,
                 'subs'  => [
-                    ['label' => 'Gudang & Logistik', 'children' => ['Penerimaan Barang', 'Order Picking', 'Pengemasan & Pengiriman', 'Optimasi Storage', 'Supply Produksi', 'Barang Keluar']],
-                    ['label' => 'Manufaktur', 'children' => ['Lini Produksi', 'Material Supply', 'Pengangkutan Internal', 'Waste Management']],
-                    ['label' => 'Cold Storage', 'children' => ['Forklift Suhu Rendah', 'Freezer Warehouse', 'Pharmaceutical Storage']],
-                    ['label' => 'Retail & Distribusi', 'children' => ['Cross Docking', 'Sortasi & Distribusi', 'Last-Mile Support']],
-                    ['label' => 'Konstruksi & Berat', 'children' => ['Forklift Outdoor', 'Rough Terrain', 'Heavy Load Solution']],
+                    ['label' => 'Forklift Baru',                              'href' => null, 'children' => []],
+                    ['label' => 'Sewa Forklift',                              'href' => null, 'children' => []],
+                    ['label' => 'Fitur Tambahan',                             'href' => null, 'children' => []],
+                    ['label' => 'Teknologi Distributor Forklift Li-Ion',      'href' => null, 'children' => []],
+                    ['label' => 'Lini Produk',                                'href' => null, 'children' => []],
                 ],
             ],
             [
-                'label' => 'Layanan',
+                'label' => 'Sistem Intralogistik',
                 'href'  => null,
                 'subs'  => [
-                    ['label' => 'Perawatan & Servis', 'children' => ['Servis Berkala', 'Servis Darurat', 'Perawatan Preventif', 'Overhaul']],
-                    ['label' => 'Suku Cadang', 'children' => ['Suku Cadang Original', 'Fast Moving Parts', 'Pemesanan Online']],
-                    ['label' => 'Pelatihan Operator', 'children' => ['Sertifikasi Operator', 'Safety Training', 'In-House Training']],
-                    ['label' => 'Konsultasi Teknis', 'children' => ['Analisa Kebutuhan', 'Fleet Management', 'Konsultasi On-Site']],
+                    ['label' => 'Otomasi',                                    'href' => null, 'children' => []],
+                    ['label' => 'Narrow Aisle Trucks',                        'href' => null, 'children' => []],
+                    ['label' => 'Fleet Solutions',                            'href' => null, 'children' => []],
                 ],
             ],
             [
-                'label' => 'Berita',
-                'href'  => '/berita',
-                'subs'  => [],
+                'label' => 'Layanan Purna Jual',
+                'href'  => null,
+                'subs'  => [
+                    ['label' => 'Servis dan Perbaikan',                       'href' => null, 'children' => []],
+                    ['label' => 'Kontrak Servis',                             'href' => null, 'children' => []],
+                    ['label' => 'Keamanan',                                   'href' => null, 'children' => []],
+                    ['label' => 'Pelatihan Operator',                         'href' => null, 'children' => []],
+                    ['label' => 'Aksesoris',                                  'href' => null, 'children' => []],
+                    ['label' => 'Distributor Forklift Original Parts®',       'href' => null, 'children' => []],
+                    ['label' => 'Servis untuk Sistem Otomatis',               'href' => null, 'children' => []],
+                    ['label' => 'Servis untuk Sistem Energi',                 'href' => null, 'children' => []],
+                ],
             ],
             [
                 'label' => 'Perusahaan',
                 'href'  => null,
                 'subs'  => [
-                    ['label' => 'Tentang Kami', 'children' => ['Sejarah Perusahaan', 'Visi & Misi', 'Sertifikasi & Penghargaan']],
-                    ['label' => 'Mitra & Merek', 'children' => []],
-                    ['label' => 'Karir', 'children' => ['Lowongan Kerja', 'Budaya Kerja', 'Benefit Karyawan']],
+                    ['label' => 'Keberlanjutan',                              'href' => null,      'children' => []],
+                    ['label' => 'Tentang Kami',                               'href' => null,      'children' => []],
+                    ['label' => '3 Tahun Distributor Forklift',               'href' => null,      'children' => []],
+                    ['label' => 'Kontak dan Lokasi',                          'href' => '/kontak', 'children' => []],
+                    ['label' => 'Berita',                                     'href' => '/berita', 'children' => []],
+                    ['label' => 'Partner',                                    'href' => null,      'children' => []],
+                    ['label' => 'Sertifikasi',                                'href' => null,      'children' => []],
                 ],
-            ],
-            [
-                'label' => 'Kontak',
-                'href'  => null,
-                'subs'  => [],
             ],
         ];
 
@@ -80,7 +87,7 @@ class NavItemSeeder extends Seeder
                     'parent_id'  => $mainItem->id,
                     'level'      => 2,
                     'label'      => $sub['label'],
-                    'href'       => $sub['href'] ?? null,
+                    'href'       => $sub['href'],
                     'sort_order' => $subOrder + 1,
                 ]);
 
@@ -88,8 +95,8 @@ class NavItemSeeder extends Seeder
                     NavItem::create([
                         'parent_id'  => $subItem->id,
                         'level'      => 3,
-                        'label'      => $child,
-                        'href'       => null,
+                        'label'      => is_array($child) ? $child['label'] : $child,
+                        'href'       => is_array($child) ? ($child['href'] ?? null) : null,
                         'sort_order' => $childOrder + 1,
                     ]);
                 }
@@ -97,4 +104,3 @@ class NavItemSeeder extends Seeder
         }
     }
 }
-
