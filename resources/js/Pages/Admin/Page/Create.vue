@@ -1,17 +1,26 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import RichTextEditor from "@/Components/Admin/RichTextEditor.vue";
-import { Head, Link, useForm } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
+import { ref, computed } from "vue";
 
-const NAV_GROUPS = ["Produk", "Solusi", "Layanan", "Perusahaan"];
+const navStructure = computed(() => usePage().props.nav_structure ?? []);
 
-const NAV_SUB_MAP = {
-    Produk: ["Forklift Baru", "Forklift Sewa", "Forklift Bekas", "Reach Truck", "Hand Pallet & Order Picker"],
-    Solusi: ["Gudang & Logistik", "Manufaktur", "Cold Storage", "Retail & Distribusi", "Konstruksi & Berat"],
-    Layanan: ["Perawatan & Servis", "Suku Cadang", "Pelatihan Operator", "Konsultasi Teknis"],
-    Perusahaan: ["Tentang Kami", "Mitra & Merek", "Karir"],
-};
+const NAV_GROUPS = computed(() =>
+    navStructure.value
+        .filter((item) => item.subItems && item.subItems.length)
+        .map((item) => item.label)
+);
+
+const NAV_SUB_MAP = computed(() => {
+    const map = {};
+    navStructure.value
+        .filter((item) => item.subItems && item.subItems.length)
+        .forEach((item) => {
+            map[item.label] = item.subItems.map((sub) => sub.label);
+        });
+    return map;
+});
 
 const form = useForm({
     title: "",

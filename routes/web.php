@@ -58,7 +58,14 @@ Route::get('/halaman/{slug}', [PageController::class, 'show'])->name('page.show'
 // Admin routes
 Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('Dashboard');
+        return Inertia::render('Dashboard', [
+            'stats' => [
+                'pages'   => \App\Models\Page::where('is_published', true)->count(),
+                'news'    => \App\Models\News::where('is_published', true)->count(),
+                'sliders' => \App\Models\HeroSlider::count(),
+                'navItems'=> \App\Models\NavItem::where('is_active', true)->count(),
+            ],
+        ]);
     })->name('dashboard');
 
     Route::get('profile', [ProfileController::class, 'edit'])->name('profile.edit');
