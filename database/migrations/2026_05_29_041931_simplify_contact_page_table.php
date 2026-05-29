@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('contact_page', function (Blueprint $table) {
-            $table->dropColumn(['title', 'label', 'subtitle', 'cta_text', 'cta_url', 'is_published', 'published_at']);
-        });
+        $columns = ['title', 'label', 'subtitle', 'cta_text', 'cta_url', 'is_published', 'published_at'];
+        $existing = array_filter($columns, fn($col) => Schema::hasColumn('contact_page', $col));
+
+        if (!empty($existing)) {
+            Schema::table('contact_page', function (Blueprint $table) use ($existing) {
+                $table->dropColumn(array_values($existing));
+            });
+        }
     }
 
     public function down(): void
