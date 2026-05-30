@@ -16,6 +16,7 @@ class SiteSettingRequest extends FormRequest
         return [
             'phone'     => ['nullable', 'string', 'max:30'],
             'whatsapp'  => ['nullable', 'string', 'max:30'],
+            'email'     => ['nullable', 'email', 'max:255'],
             'address'   => ['nullable', 'string', 'max:1000'],
             'youtube'   => ['nullable', 'url', 'max:255'],
             'instagram' => ['nullable', 'string', 'max:100'],
@@ -29,6 +30,7 @@ class SiteSettingRequest extends FormRequest
         return [
             'phone'     => 'Nomor Telepon',
             'whatsapp'  => 'Nomor WhatsApp',
+            'email'     => 'Email Perusahaan',
             'address'   => 'Alamat',
             'youtube'   => 'YouTube',
             'instagram' => 'Instagram',

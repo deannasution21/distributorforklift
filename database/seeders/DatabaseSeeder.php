@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ContactPageSeeder::class);
         $this->call(InquirySettingSeeder::class);
         $this->call(SiteSettingSeeder::class);
+        $this->call(HomepageShowcaseSeeder::class);
     }
 }

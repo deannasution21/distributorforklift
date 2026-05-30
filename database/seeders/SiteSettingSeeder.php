@@ -12,13 +12,15 @@ class SiteSettingSeeder extends Seeder
         SiteSetting::truncate();
 
         SiteSetting::create([
-            'phone'     => '+62 857 8007 8367',
-            'whatsapp'  => '6285780078367',
-            'address'   => "PT. Distributor Forklift Indonesia\nJl. Raya Industri No. 45\nKawasan Industri Pulogadung\nJakarta Timur 13920",
-            'youtube'   => null,
-            'instagram' => null,
-            'tiktok'    => null,
-            'facebook'  => null,
+            'phone'            => '+62 857 8007 8367',
+            'whatsapp'         => '6285780078367',
+            'email'            => 'info@distributorforklift.co.id',
+            'address'          => "PT. Distributor Forklift Indonesia\nJl. Raya Industri No. 45\nKawasan Industri Pulogadung\nJakarta Timur 13920",
+            'instagram'        => 'distributorforklift',
+            'tiktok'           => 'distributorforklift',
+            'facebook'         => 'distributorforklift',
+            'youtube'          => null,
+            'showcase_heading' => 'Distributor Forklift terdepan dalam solusi material handling industri di Indonesia',
         ]);
     }
 }

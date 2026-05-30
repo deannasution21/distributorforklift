@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\HeroSliderController;
 use App\Http\Controllers\Admin\HomepageAboutController;
+use App\Http\Controllers\Admin\HomepageShowcaseController;
 use App\Http\Controllers\Admin\ContactPageController as AdminContactPageController;
 use App\Http\Controllers\Admin\InquirySettingController;
 use App\Http\Controllers\Admin\NavItemController;
@@ -36,10 +37,25 @@ Route::get('/', function () {
             'image'    => $n->image ? '/storage/' . $n->image : null,
         ]);
 
+    $setting   = \App\Models\SiteSetting::first();
+    $showcases = \App\Models\HomepageShowcase::all()->keyBy(fn ($s) => "{$s->row}_{$s->position}");
+    $slot = fn ($r, $p) => [
+        'title'       => $showcases->get("{$r}_{$p}")?->title,
+        'description' => $showcases->get("{$r}_{$p}")?->description,
+        'image'       => $showcases->get("{$r}_{$p}")?->image ? '/storage/' . $showcases->get("{$r}_{$p}")->image : null,
+        'href'        => $showcases->get("{$r}_{$p}")?->href,
+    ];
+
     return Inertia::render('Home', [
-        'sliders' => $sliders,
-        'about'   => $about,
-        'news'    => $news,
+        'sliders'  => $sliders,
+        'about'    => $about,
+        'news'     => $news,
+        'showcase' => [
+            'heading' => $setting?->showcase_heading ?? 'Distributor Forklift terdepan dalam solusi material handling industri di Indonesia',
+            'row1'    => [$slot(1,1), $slot(1,2), $slot(1,3)],
+            'row2'    => [$slot(2,1), $slot(2,2), $slot(2,3)],
+            'row3'    => [$slot(3,1), $slot(3,2), $slot(3,3)],
+        ],
     ]);
 })->name('home');
 
@@ -80,6 +96,8 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
     // Homepage sections
     Route::get('homepage/tentang', [HomepageAboutController::class, 'edit'])->name('admin.homepage.tentang');
     Route::put('homepage/tentang', [HomepageAboutController::class, 'update'])->name('admin.homepage.tentang.update');
+    Route::get('homepage/showcase', [HomepageShowcaseController::class, 'edit'])->name('admin.homepage.showcase');
+    Route::put('homepage/showcase', [HomepageShowcaseController::class, 'update'])->name('admin.homepage.showcase.update');
 
     // News CRUD
     Route::resource('news', AdminNewsController::class)

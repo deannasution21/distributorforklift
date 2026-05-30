@@ -8,6 +8,7 @@ const form = useForm({
     _method:   "PUT",
     phone:     props.setting.phone ?? "",
     whatsapp:  props.setting.whatsapp ?? "",
+    email:     props.setting.email ?? "",
     address:   props.setting.address ?? "",
     youtube:   props.setting.youtube ?? "",
     instagram: props.setting.instagram ?? "",
@@ -59,6 +60,13 @@ function submit() {
                                 class="w-full border border-gray-200 px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 rounded transition-colors" />
                             <p v-if="form.errors.whatsapp" class="mt-1 text-xs text-red-500">{{ form.errors.whatsapp }}</p>
                         </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 mb-1.5">Email Perusahaan</label>
+                        <input v-model="form.email" type="email" placeholder="info@perusahaan.co.id"
+                            class="w-full border border-gray-200 px-3.5 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 rounded transition-colors" />
+                        <p v-if="form.errors.email" class="mt-1 text-xs text-red-500">{{ form.errors.email }}</p>
                     </div>
 
                     <div>

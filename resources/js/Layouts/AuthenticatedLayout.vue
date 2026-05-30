@@ -13,7 +13,8 @@ const isCompanyProfileActive = computed(() => {
             route().current("admin.sliders.index") ||
             route().current("admin.sliders.create") ||
             route().current("admin.sliders.edit") ||
-            route().current("admin.homepage.tentang")
+            route().current("admin.homepage.tentang") ||
+            route().current("admin.homepage.showcase")
         );
     } catch {
         return false;
@@ -274,6 +275,35 @@ function isItemActive(routeName) {
                                     />
                                 </svg>
                                 Hero Slider
+                            </Link>
+                            <Link
+                                :href="route('admin.homepage.showcase')"
+                                class="flex items-center gap-2.5 px-3 py-2 rounded-md font-medium transition-colors duration-150"
+                                :class="
+                                    isItemActive('admin.homepage.showcase')
+                                        ? 'bg-orange-50 text-orange-600 font-semibold'
+                                        : 'text-slate-500 hover:bg-gray-50 hover:text-slate-700'
+                                "
+                            >
+                                <svg
+                                    class="w-4 h-4 shrink-0"
+                                    :class="
+                                        isItemActive('admin.homepage.showcase')
+                                            ? 'text-orange-500'
+                                            : 'text-slate-400'
+                                    "
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="1.75"
+                                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                                    />
+                                </svg>
+                                Showcase
                             </Link>
                             <Link
                                 :href="route('admin.homepage.tentang')"

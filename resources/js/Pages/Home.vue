@@ -144,8 +144,7 @@
                 <h2
                     class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 leading-tight md:leading-[60px] lg:leading-[68px] max-w-4xl"
                 >
-                    Distributor Forklift terdepan dalam solusi material handling
-                    industri di Indonesia
+                    {{ showcase.heading }}
                 </h2>
             </div>
         </section>
@@ -153,13 +152,17 @@
         <!-- ============================================================
          PRODUCT CARDS ROW 1 — 3 bordered cards, STILL UK style
     ============================================================ -->
-        <section class="bg-white pb-12">
+        <section v-if="row1Cards.length" class="bg-white pb-12">
             <div class="max-w-screen-xl mx-auto px-4">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div
-                        v-for="card in serviceCards.slice(0, 3)"
-                        :key="card.title"
-                        class="group cursor-pointer flex flex-col border border-gray-200"
+                <div class="grid grid-cols-1 gap-8"
+                    :class="row1Cards.length >= 3 ? 'md:grid-cols-3' : row1Cards.length === 2 ? 'md:grid-cols-2' : ''">
+                    <component
+                        :is="card.href ? 'a' : 'div'"
+                        v-for="(card, i) in row1Cards"
+                        :key="i"
+                        :href="card.href || undefined"
+                        class="group flex flex-col border border-gray-200"
+                        :class="card.href ? 'cursor-pointer' : ''"
                     >
                         <div class="p-6 md:p-8 flex-1 min-h-[180px]">
                             <h3
@@ -180,7 +183,7 @@
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             />
                         </div>
-                    </div>
+                    </component>
                 </div>
             </div>
         </section>
@@ -188,66 +191,36 @@
         <!-- ============================================================
          PRODUCT CARDS ROW 2 — Pattern background, white cards floating
     ============================================================ -->
-        <section
-            style="
-                background: #f0f0f0 url(&quot;/static/bg-pattern.jpg&quot;) 50%
-                    50%;
-                background-size: cover;
-            "
+        <section v-if="row2Cards.length"
+            style="background: #f0f0f0 url('/static/bg-pattern.jpg') 50% 50%; background-size: cover;"
             class="py-12"
         >
             <div class="max-w-screen-xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 px-4">
-                    <!-- Wide card: spans 2 cols -->
-                    <div
-                        class="group md:col-span-2 bg-white cursor-pointer flex flex-col"
+                <div class="grid grid-cols-1 gap-8 px-4"
+                    :class="row2Cards.length >= 3 ? 'md:grid-cols-4' : row2Cards.length === 2 ? 'md:grid-cols-3' : ''">
+                    <component
+                        :is="card.href ? 'a' : 'div'"
+                        v-for="(card, i) in row2Cards"
+                        :key="i"
+                        :href="card.href || undefined"
+                        class="group bg-white flex flex-col"
+                        :class="[card.href ? 'cursor-pointer' : '', row2Cards.length >= 2 && i === 0 ? 'md:col-span-2' : '']"
                     >
-                        <div class="p-6 md:p-8 flex-1 min-h-[180px]">
-                            <h3
-                                class="text-xl md:text-3xl font-black text-slate-900 group-hover:text-orange-600 mb-10 leading-tight transition-colors duration-200"
-                            >
-                                {{ serviceCards[3].title }}
-                            </h3>
-                            <p
-                                class="md:text-xl text-gray-400 leading-relaxed mb-8"
-                            >
-                                {{ serviceCards[3].description }}
-                            </p>
-                        </div>
-                        <div class="overflow-hidden h-[230px] md:h-[360px]">
-                            <img
-                                :src="serviceCards[3].image"
-                                :alt="serviceCards[3].title"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                        </div>
-                    </div>
-                    <!-- Two narrow white cards -->
-                    <div
-                        v-for="card in serviceCards.slice(4, 6)"
-                        :key="card.title"
-                        class="group bg-white cursor-pointer flex flex-col"
-                    >
-                        <div class="px-7 pt-7 pb-5 flex-1 min-h-[180px]">
-                            <h3
-                                class="text-xl md:text-3xl font-black text-slate-900 group-hover:text-orange-600 leading-tight mb-10 transition-colors duration-200"
-                            >
+                        <div class="flex-1 min-h-[180px]"
+                            :class="row2Cards.length >= 2 && i === 0 ? 'p-6 md:p-8' : 'px-7 pt-7 pb-5'">
+                            <h3 class="text-xl md:text-3xl font-black text-slate-900 group-hover:text-orange-600 leading-tight mb-10 transition-colors duration-200">
                                 {{ card.title }}
                             </h3>
-                            <p
-                                class="md:text-xl text-gray-400 leading-relaxed mb-8 md:mb-0"
-                            >
+                            <p class="md:text-xl text-gray-400 leading-relaxed mb-8 md:mb-0">
                                 {{ card.description }}
                             </p>
                         </div>
-                        <div class="overflow-hidden h-[230px] md:h-[169px]">
-                            <img
-                                :src="card.image"
-                                :alt="card.title"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
+                        <div class="overflow-hidden"
+                            :class="row2Cards.length >= 2 && i === 0 ? 'h-[230px] md:h-[360px]' : 'h-[230px] md:h-[169px]'">
+                            <img :src="card.image" :alt="card.title"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                         </div>
-                    </div>
+                    </component>
                 </div>
             </div>
         </section>
@@ -255,13 +228,17 @@
         <!-- ============================================================
          PRODUCT CARDS ROW 3 — 2 bordered cards, STILL UK style
     ============================================================ -->
-        <section class="bg-white py-12">
+        <section v-if="row3Cards.length" class="bg-white py-12">
             <div class="max-w-screen-xl mx-auto px-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-y-16">
-                    <div
-                        v-for="card in serviceCards.slice(0, 4)"
-                        :key="card.title"
-                        class="group cursor-pointer flex flex-col border border-gray-200"
+                <div class="grid grid-cols-1 gap-8 md:gap-y-16"
+                    :class="row3Cards.length >= 2 ? 'md:grid-cols-2' : ''">
+                    <component
+                        :is="card.href ? 'a' : 'div'"
+                        v-for="(card, i) in row3Cards"
+                        :key="i"
+                        :href="card.href || undefined"
+                        class="group flex flex-col border border-gray-200"
+                        :class="card.href ? 'cursor-pointer' : ''"
                     >
                         <div class="p-6 md:p-8 flex-1 min-h-[180px]">
                             <h3
@@ -282,7 +259,7 @@
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             />
                         </div>
-                    </div>
+                    </component>
                 </div>
             </div>
         </section>
@@ -469,15 +446,29 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import PublicLayout from "@/Layouts/PublicLayout.vue";
 import InquirySection from "@/Components/Public/InquirySection.vue";
 
 const props = defineProps({
-    sliders: { type: Array, default: () => [] },
-    about: { type: Object, default: null },
-    news: { type: Array, default: () => [] },
+    sliders:  { type: Array,  default: () => [] },
+    about:    { type: Object, default: null },
+    news:     { type: Array,  default: () => [] },
+    showcase: {
+        type: Object,
+        default: () => ({
+            heading: 'Distributor Forklift terdepan dalam solusi material handling industri di Indonesia',
+            row1: [{}, {}, {}],
+            row2: [{}, {}, {}],
+            row3: [{}, {}, {}],
+        }),
+    },
 });
+
+// ── Showcase filtered cards ──────────────────────────────────────
+const row1Cards = computed(() => (props.showcase.row1 ?? []).filter(c => c.title || c.image));
+const row2Cards = computed(() => (props.showcase.row2 ?? []).filter(c => c.title || c.image));
+const row3Cards = computed(() => (props.showcase.row3 ?? []).filter(c => c.title || c.image));
 
 // ── Hero Slider ──────────────────────────────────────────────────
 const currentSlide = ref(0);
@@ -507,51 +498,6 @@ onUnmounted(() => {
     clearInterval(autoplayTimer);
 });
 
-// ── Service Cards ────────────────────────────────────────────────
-const serviceCards = [
-    {
-        category: "Produk",
-        title: "Forklift Baru",
-        description:
-            "Koleksi forklift terbaru dari merek-merek ternama dunia dengan teknologi terkini.",
-        image: "https://picsum.photos/seed/card1/600/400",
-    },
-    {
-        category: "Produk",
-        title: "Forklift Sewa",
-        description:
-            "Solusi sewa forklift fleksibel untuk kebutuhan jangka pendek maupun jangka panjang.",
-        image: "https://picsum.photos/seed/card2/600/400",
-    },
-    {
-        category: "Produk",
-        title: "Forklift Bekas",
-        description:
-            "Unit forklift bekas berkualitas dengan harga kompetitif, telah melalui inspeksi ketat.",
-        image: "https://picsum.photos/seed/card3/600/400",
-    },
-    {
-        category: "Peralatan",
-        title: "Reach Truck",
-        description:
-            "Reach truck ideal untuk operasional gudang dengan rak tinggi dan lorong sempit.",
-        image: "https://picsum.photos/seed/card4/600/400",
-    },
-    {
-        category: "Layanan",
-        title: "Servis & Perawatan",
-        description:
-            "Layanan perawatan berkala dan perbaikan oleh teknisi bersertifikat resmi.",
-        image: "https://picsum.photos/seed/card5/600/400",
-    },
-    {
-        category: "Layanan",
-        title: "Hubungi Kami",
-        description:
-            "Konsultasikan kebutuhan material handling Anda dengan tim ahli kami.",
-        image: "https://picsum.photos/seed/card6/600/400",
-    },
-];
 
 // ── Solutions ────────────────────────────────────────────────────
 const solutions = [

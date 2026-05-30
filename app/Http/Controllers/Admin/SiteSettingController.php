@@ -19,6 +19,7 @@ class SiteSettingController extends Controller
             'setting' => [
                 'phone'     => $setting->phone,
                 'whatsapp'  => $setting->whatsapp,
+                'email'     => $setting->email,
                 'address'   => $setting->address,
                 'youtube'   => $setting->youtube,
                 'instagram' => $setting->instagram,
