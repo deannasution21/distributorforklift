@@ -172,7 +172,7 @@
 
                 <!-- Shop / CTA Button -->
                 <a
-                    href="/products"
+                    href="/produk"
                     class="hidden lg:flex items-center gap-2 bg-orange-600 hover:bg-orange-700 text-white text-sm font-semibold px-5 py-2.5 transition-colors duration-200 ml-4 flex-shrink-0"
                 >
                     <svg
@@ -188,7 +188,7 @@
                             d="M4 6h16M4 10h16M4 14h16M4 18h16"
                         />
                     </svg>
-                    Katalog
+                    Katalog Produk
                 </a>
 
                 <!-- Mobile Hamburger -->
@@ -379,7 +379,11 @@
                             <component
                                 :is="sub.href ? 'a' : 'button'"
                                 :href="sub.href ?? undefined"
-                                @click="sub.href ? null : toggleMobileSubItem(sub.label)"
+                                @click="
+                                    sub.href
+                                        ? null
+                                        : toggleMobileSubItem(sub.label)
+                                "
                                 class="flex items-center justify-between w-full py-2 text-lg text-orange-500 hover:text-orange-700 font-medium transition-colors"
                             >
                                 <span>{{ sub.label }}</span>
@@ -424,7 +428,7 @@
 
                 <div class="pt-4 pb-3 flex flex-col gap-2.5">
                     <a
-                        href="/products"
+                        href="/produk"
                         class="bg-orange-600 text-white text-lg font-semibold px-5 py-3 text-center hover:bg-orange-700 transition-colors"
                     >
                         Katalog Produk
@@ -440,6 +444,9 @@ import { ref, computed } from "vue";
 import { usePage } from "@inertiajs/vue3";
 
 const sharedNavPages = computed(() => usePage().props.nav_pages ?? []);
+const sharedNavCategories = computed(
+    () => usePage().props.nav_product_categories ?? [],
+);
 const navStructure = computed(() => usePage().props.nav_structure ?? []);
 
 const siteSettings = computed(() => usePage().props.site_settings ?? {});
@@ -644,7 +651,10 @@ const baseNavItems = [
 const navItems = computed(() => {
     const base = navStructure.value.length ? navStructure.value : baseNavItems;
 
-    if (!sharedNavPages.value.length) return base;
+    const hasPages = sharedNavPages.value.length > 0;
+    const hasCategories = sharedNavCategories.value.length > 0;
+
+    if (!hasPages && !hasCategories) return base;
 
     return base.map((mainItem) => {
         if (!mainItem.subItems) return mainItem;
@@ -652,24 +662,40 @@ const navItems = computed(() => {
         const relevantPages = sharedNavPages.value.filter(
             (p) => p.nav_group === mainItem.label,
         );
-        if (!relevantPages.length) return mainItem;
+        const relevantCategories = sharedNavCategories.value.filter(
+            (c) => c.nav_group === mainItem.label,
+        );
+
+        if (!relevantPages.length && !relevantCategories.length)
+            return mainItem;
 
         const newSubItems = mainItem.subItems.map((sub) => {
             const pagesForSub = relevantPages.filter(
                 (p) => p.nav_sub === sub.label,
             );
-            if (!pagesForSub.length) return sub;
+            const categoriesForSub = relevantCategories.filter(
+                (c) => c.nav_sub === sub.label,
+            );
 
-            const dynamicChildren = pagesForSub.map((p) => ({
-                label: p.nav_label || p.slug,
+            if (!pagesForSub.length && !categoriesForSub.length) return sub;
+
+            const dynamicFromPages = pagesForSub.map((p) => ({
+                label: p.nav_label || p.title || p.slug,
                 href: route("page.show", p.slug),
             }));
+
+            const dynamicFromCategories = categoriesForSub.map((c) => ({
+                label: c.nav_label || c.name,
+                href: route("products.category", c.slug),
+            }));
+
+            const allDynamic = [...dynamicFromPages, ...dynamicFromCategories];
 
             return {
                 ...sub,
                 children: sub.children
-                    ? [...sub.children, ...dynamicChildren]
-                    : dynamicChildren,
+                    ? [...sub.children, ...allDynamic]
+                    : allDynamic,
             };
         });
 

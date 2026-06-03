@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\HeroSliderController;
+use App\Http\Controllers\Admin\ProductCategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\HomepageAboutController;
 use App\Http\Controllers\Admin\HomepageClientController;
 use App\Http\Controllers\Admin\HomepageShowcaseController;
@@ -12,6 +14,7 @@ use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Public\ContactPageController;
+use App\Http\Controllers\Public\ProductController as PublicProductController;
 use App\Http\Controllers\Public\NewsController;
 use App\Http\Controllers\Public\PageController;
 use App\Http\Controllers\ProfileController;
@@ -83,6 +86,10 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get('/produk', [PublicProductController::class, 'index'])->name('products.index');
+Route::get('/produk/{category}', [PublicProductController::class, 'category'])->name('products.category');
+Route::get('/produk/{category}/{product}', [PublicProductController::class, 'show'])->name('products.show');
+
 Route::get('/kontak', [ContactPageController::class, 'show'])->name('contact.show');
 Route::get('/berita', [NewsController::class, 'index'])->name('news.index');
 Route::get('/berita/{slug}', [NewsController::class, 'show'])->name('news.show');
@@ -130,6 +137,16 @@ Route::prefix('admin')->middleware(['auth', 'verified'])->group(function () {
         ->names('admin.homepage.clients')
         ->except(['show'])
         ->parameters(['clients' => 'client']);
+
+    // Products CRUD
+    Route::resource('product-categories', ProductCategoryController::class)
+        ->names('admin.product-categories')
+        ->except(['show'])
+        ->parameters(['product-categories' => 'category']);
+
+    Route::resource('products', ProductController::class)
+        ->names('admin.products')
+        ->except(['show']);
 
     // News CRUD
     Route::resource('news', AdminNewsController::class)

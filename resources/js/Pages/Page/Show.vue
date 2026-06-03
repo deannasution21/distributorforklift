@@ -2,6 +2,36 @@
     <PublicLayout>
         <Head :title="page.title" />
 
+        <!-- Breadcrumb -->
+        <div class="bg-white border-b border-gray-100">
+            <div class="max-w-screen-xl mx-auto px-4 py-3 flex items-center gap-2 text-sm text-gray-400">
+                <a href="/" class="hover:text-orange-600 transition-colors duration-150">Home</a>
+
+                <!-- Nav group (e.g. "Perusahaan") -->
+                <template v-if="breadcrumbGroup">
+                    <span>›</span>
+                    <a v-if="breadcrumbGroup.href" :href="breadcrumbGroup.href"
+                        class="hover:text-orange-600 transition-colors duration-150">
+                        {{ breadcrumbGroup.label }}
+                    </a>
+                    <span v-else>{{ breadcrumbGroup.label }}</span>
+                </template>
+
+                <!-- Nav sub (e.g. "Keberlanjutan") -->
+                <template v-if="breadcrumbSub">
+                    <span>›</span>
+                    <a v-if="breadcrumbSub.href" :href="breadcrumbSub.href"
+                        class="hover:text-orange-600 transition-colors duration-150">
+                        {{ breadcrumbSub.label }}
+                    </a>
+                    <span v-else>{{ breadcrumbSub.label }}</span>
+                </template>
+
+                <span>›</span>
+                <span class="text-slate-600 font-medium truncate max-w-[200px] md:max-w-xs">{{ page.title }}</span>
+            </div>
+        </div>
+
         <!-- ============================================================
              HERO SECTION — Split layout: 45% text | 55% image (non-slider)
         ============================================================ -->
@@ -113,11 +143,12 @@
 </template>
 
 <script setup>
-import { Head } from "@inertiajs/vue3";
+import { computed } from "vue";
+import { Head, usePage } from "@inertiajs/vue3";
 import PublicLayout from "@/Layouts/PublicLayout.vue";
 import InquirySection from "@/Components/Public/InquirySection.vue";
 
-defineProps({
+const props = defineProps({
     page: {
         type: Object,
         default: () => ({
@@ -147,6 +178,21 @@ defineProps({
             `,
         }),
     },
+});
+
+const navStructure = computed(() => usePage().props.nav_structure ?? []);
+
+const breadcrumbGroup = computed(() => {
+    if (!props.page?.nav_group) return null;
+    const item = navStructure.value.find(i => i.label === props.page.nav_group);
+    return item ? { label: item.label, href: item.href ?? null } : { label: props.page.nav_group, href: null };
+});
+
+const breadcrumbSub = computed(() => {
+    if (!props.page?.nav_sub || !breadcrumbGroup.value) return null;
+    const parent = navStructure.value.find(i => i.label === props.page.nav_group);
+    const sub = parent?.subItems?.find(s => s.label === props.page.nav_sub);
+    return sub ? { label: sub.label, href: sub.href ?? null } : { label: props.page.nav_sub, href: null };
 });
 </script>
 

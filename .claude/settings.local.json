@@ -38,7 +38,12 @@
       "PowerShell(& \"C:\\\\Program Files\\\\nodejs\\\\npm.cmd\" install swiper --prefix \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\" 2>&1)",
       "PowerShell(Get-Command node -ErrorAction SilentlyContinue)",
       "PowerShell(Get-Command npm -ErrorAction SilentlyContinue)",
-      "PowerShell(& \"C:\\\\Users\\\\asus\\\\AppData\\\\Roaming\\\\npm\\\\pnpm.cmd\" add swiper --dir \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\")"
+      "PowerShell(& \"C:\\\\Users\\\\asus\\\\AppData\\\\Roaming\\\\npm\\\\pnpm.cmd\" add swiper --dir \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\")",
+      "PowerShell(Get-ChildItem \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\database\\\\migrations\\\\\" | Where-Object { $_.Name -match \"product\" })",
+      "PowerShell(Get-ChildItem \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\app\\\\Models\\\\\" | Where-Object { $_.Name -match \"Product\" })",
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Pages\\\\Admin\\\\Products\\\\Category\")",
+      "PowerShell(New-Item -ItemType Directory -Force \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\\\\resources\\\\js\\\\Pages\\\\Admin\\\\Products\\\\Product\")",
+      "PowerShell(cd \"d:\\\\htdocs\\\\NEW\\\\distributorforklift\" ; php artisan tinker --execute=\"App\\\\Models\\\\ProductCategory::orderBy\\('sort_order'\\)->orderBy\\('id'\\)->get\\(['id','name','slug','description','image','sort_order','is_active','is_system','show_in_nav','show_inquiry','nav_group','nav_sub','nav_label']\\)->each\\(function\\(\\\\$c\\){ echo json_encode\\(\\\\$c->toArray\\(\\)\\) . PHP_EOL; }\\);\")"
     ]
   }
 }

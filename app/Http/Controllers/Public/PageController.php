@@ -17,15 +17,17 @@ class PageController extends Controller
 
         return Inertia::render('Page/Show', [
             'page' => [
-                'title'    => $page->title,
-                'label'    => $page->label,
-                'subtitle' => $page->subtitle,
-                'heading'  => $page->heading,
-                'cta_text' => $page->cta_text,
-                'cta_url'  => $page->cta_url,
-                'image'    => $page->image ? '/storage/' . $page->image : null,
+                'title'        => $page->title,
+                'label'        => $page->label,
+                'subtitle'     => $page->subtitle,
+                'heading'      => $page->heading,
+                'cta_text'     => $page->cta_text,
+                'cta_url'      => $page->cta_url,
+                'image'        => $page->image ? '/storage/' . $page->image : null,
                 'content'      => $page->content,
                 'show_inquiry' => $page->show_inquiry,
+                'nav_group'    => $page->nav_group,
+                'nav_sub'      => $page->nav_sub,
             ],
         ]);
     }

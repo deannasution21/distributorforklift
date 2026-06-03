@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\InquirySetting;
 use App\Models\NavItem;
 use App\Models\Page;
+use App\Models\ProductCategory;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -45,7 +46,12 @@ class HandleInertiaRequests extends Middleware
             'nav_pages' => fn () => Page::where('is_published', true)
                 ->where('show_in_nav', true)
                 ->orderBy('nav_group')->orderBy('nav_sub')->orderBy('nav_label')
-                ->get(['slug', 'nav_group', 'nav_sub', 'nav_label']),
+                ->get(['slug', 'title', 'nav_group', 'nav_sub', 'nav_label']),
+
+            'nav_product_categories' => fn () => ProductCategory::where('is_active', true)
+                ->where('show_in_nav', true)
+                ->orderBy('sort_order')->orderBy('id')
+                ->get(['slug', 'name', 'nav_group', 'nav_sub', 'nav_label']),
 
             'nav_structure' => fn () => NavItem::whereNull('parent_id')
                 ->where('is_active', true)
