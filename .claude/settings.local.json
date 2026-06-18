@@ -54,7 +54,13 @@
       "Bash(sed -i 's/^upload_max_filesize = 2M/upload_max_filesize = 20M/' \"C:\\\\xampp\\\\php\\\\php.ini\")",
       "Bash(sed -i 's/^post_max_size = 8M/post_max_size = 25M/' \"C:\\\\xampp\\\\php\\\\php.ini\")",
       "Bash(find /c/xampp -iname \"php.ini\" 2>/dev/null)",
-      "Read(//c/xampp/**)"
+      "Read(//c/xampp/**)",
+      "Bash(php artisan tinker '--execute= *)",
+      "Read(//tmp/**)",
+      "Bash(php -l database/seeders/ProductSeeder.php)",
+      "Bash(find . -maxdepth 1 -iname \"nixpacks.toml\" -o -maxdepth 1 -iname \"railway.json\" -o -maxdepth 1 -iname \"Procfile\")",
+      "Bash(cat nixpacks.toml)",
+      "Bash(cat railway.json)"
     ]
   }
 }
